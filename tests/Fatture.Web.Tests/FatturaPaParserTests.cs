@@ -2,7 +2,7 @@ using System.Text;
 using Fatture.Web.Models;
 using Fatture.Web.Options;
 using Fatture.Web.Services;
-using Microsoft.Extensions.Options;
+using Xunit;
 
 namespace Fatture.Web.Tests;
 
@@ -37,7 +37,8 @@ public sealed class FatturaPaParserTests
         string Body(string number) => $"<{ns}FatturaElettronicaBody><{ns}DatiGenerali><{ns}DatiGeneraliDocumento><{ns}TipoDocumento>{Type}</{ns}TipoDocumento><{ns}Divisa>{Currency}</{ns}Divisa><{ns}Data>2026-01-10</{ns}Data><{ns}Numero>{number}</{ns}Numero>{(Total is null ? "" : $"<{ns}ImportoTotaleDocumento>{Total}</{ns}ImportoTotaleDocumento>")}{GeneralExtra}</{ns}DatiGeneraliDocumento></{ns}DatiGenerali><{ns}DatiBeniServizi>{Summaries}</{ns}DatiBeniServizi>{BodyExtra}</{ns}FatturaElettronicaBody>";
         var xml = $"<{ns}FatturaElettronica{xmlns}><{ns}FatturaElettronicaHeader><{ns}CedentePrestatore><{ns}DatiAnagrafici><{ns}IdFiscaleIVA><{ns}IdPaese>IT</{ns}IdPaese><{ns}IdCodice>11111111111</{ns}IdCodice></{ns}IdFiscaleIVA><{ns}Anagrafica>{SupplierRegistry}</{ns}Anagrafica></{ns}DatiAnagrafici></{ns}CedentePrestatore><{ns}CessionarioCommittente><{ns}DatiAnagrafici><{ns}IdFiscaleIVA><{ns}IdPaese>IT</{ns}IdPaese><{ns}IdCodice>12345678901</{ns}IdCodice></{ns}IdFiscaleIVA><{ns}CodiceFiscale>RSSMRA80A01H501U</{ns}CodiceFiscale><{ns}Anagrafica><{ns}Denominazione>Cliente Srl</{ns}Denominazione></{ns}Anagrafica></{ns}DatiAnagrafici></{ns}CessionarioCommittente></{ns}FatturaElettronicaHeader>{Body("INV-1")}{(SecondBody ? Body("INV-2") : "")}</{ns}FatturaElettronica>";
         using var stream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
-        var parser = new FatturaPaParser(Options.Create(new CompanyIdentityOptions { VatCountryCode = "IT", VatNumber = VatNumber, FiscalCode = FiscalCode }));
+        var parser = new FatturaPaParser(Microsoft.Extensions.Options.Options.Create(
+            new CompanyIdentityOptions { VatCountryCode = "IT", VatNumber = VatNumber, FiscalCode = FiscalCode }));
         return parser.Parse(stream, "fattura.xml", "cartella/fattura.xml");
     }
 }

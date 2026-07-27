@@ -1,6 +1,8 @@
 using ClosedXML.Excel;
 using Fatture.Web.Models;
 using Fatture.Web.Services;
+using Xunit;
+
 namespace Fatture.Web.Tests;
 public sealed class ExcelReportServiceTests
 {
