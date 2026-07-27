@@ -14,7 +14,11 @@ Impostare `CompanyIdentity` in `src/Fatture.Web/appsettings.json`. In Azure App 
 
 ```bash
 dotnet run --project src/Fatture.Web
-curl -F file=@fatture.zip http://localhost:5000/api/fatture/report -o report-fatture.xlsx
 ```
 
-Il workbook contiene i fogli strutturati **Fatture** e **Dettaglio IVA**.
+Aprire l'indirizzo mostrato dal comando nel browser, selezionare l'archivio ZIP e
+premere **Elabora e scarica Excel**. Il workbook scaricato contiene i fogli
+strutturati **Fatture** e **Dettaglio IVA**.
+
+L'endpoint `POST /api/fatture/report` rimane disponibile per eventuali
+integrazioni automatiche.

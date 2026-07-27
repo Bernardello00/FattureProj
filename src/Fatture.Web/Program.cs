@@ -7,7 +7,8 @@ builder.Services.AddSingleton<FatturaPaParser>();
 builder.Services.AddSingleton<InvoiceArchiveService>();
 builder.Services.AddSingleton<ExcelReportService>();
 var app = builder.Build();
-app.MapGet("/", () => Results.Text("FatturePA: inviare uno ZIP tramite POST /api/fatture/report", "text/plain; charset=utf-8"));
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.MapPost("/api/fatture/report", async (HttpRequest request, InvoiceArchiveService archive, ExcelReportService excel) =>
 {
     if (!request.HasFormContentType) return Results.BadRequest("È richiesto multipart/form-data.");

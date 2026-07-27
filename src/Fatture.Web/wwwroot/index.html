@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Elabora fatture elettroniche FatturaPA e scarica un report Excel.">
+  <title>FatturePA · Report fatture</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="FatturePA, pagina iniziale">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M7 2h7l5 5v15H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M14 2v6h5M9 13h6M9 17h6"/></svg>
+      </span>
+      <span>Fatture<span class="brand-accent">PA</span></span>
+    </a>
+    <span class="secure-label"><span class="status-dot"></span> Elaborazione protetta</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">REPORT FATTURE ELETTRONICHE</div>
+      <h1>Dalle fatture al report,<br><span>in pochi secondi.</span></h1>
+      <p>Carica il tuo archivio ZIP. Otterrai un Excel ordinato con fatture attive, passive, dettaglio IVA e segnalazioni.</p>
+    </section>
+
+    <section class="workspace" aria-labelledby="upload-title">
+      <div class="steps" aria-label="Procedura in tre passaggi">
+        <div class="step active"><span>1</span><strong>Carica</strong></div>
+        <div class="step-line"></div>
+        <div class="step"><span>2</span><strong>Elabora</strong></div>
+        <div class="step-line"></div>
+        <div class="step"><span>3</span><strong>Scarica</strong></div>
+      </div>
+
+      <form id="upload-form" novalidate>
+        <h2 id="upload-title">Carica l’archivio delle fatture</h2>
+        <p class="form-intro">Seleziona un file ZIP contenente fatture XML o XML.P7M.</p>
+
+        <label class="drop-zone" id="drop-zone" for="file-input">
+          <input id="file-input" name="file" type="file" accept=".zip,application/zip" required>
+          <span class="upload-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+          </span>
+          <strong>Trascina qui il file ZIP</strong>
+          <span>oppure <u>scegli il file</u> dal computer</span>
+          <small>Formato supportato: ZIP</small>
+        </label>
+
+        <div class="selected-file" id="selected-file" hidden>
+          <span class="file-icon" aria-hidden="true">ZIP</span>
+          <span class="file-info"><strong id="file-name"></strong><small id="file-size"></small></span>
+          <button type="button" id="remove-file" aria-label="Rimuovi file">×</button>
+        </div>
+
+        <div class="message" id="message" role="status" aria-live="polite" hidden></div>
+        <button class="primary-button" id="submit-button" type="submit" disabled>
+          <span class="button-label">Elabora e scarica Excel</span>
+          <span class="spinner" aria-hidden="true"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <section class="benefits" aria-label="Caratteristiche del report">
+      <article><span>01</span><div><h3>Classificazione automatica</h3><p>Fatture attive e passive riconosciute dai dati aziendali.</p></div></article>
+      <article><span>02</span><div><h3>Dettaglio IVA completo</h3><p>Aliquote, natura, imponibile e imposta in un foglio dedicato.</p></div></article>
+      <article><span>03</span><div><h3>Anomalie in evidenza</h3><p>Warning ed errori subito visibili nel report finale.</p></div></article>
+    </section>
+  </main>
+
+  <footer><span>FatturePA</span><span>I file vengono usati esclusivamente per generare il report.</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
