@@ -14,8 +14,7 @@ public sealed class ExcelReportService
 
     public byte[] Create(IReadOnlyCollection<InvoiceRow> invoices)
     {
-        using var workbook = new XLWorkbook(XLEventTracking.Disabled);
-        workbook.Culture = System.Globalization.CultureInfo.GetCultureInfo("it-IT");
+        using var workbook = new XLWorkbook();
         var sheet = workbook.AddWorksheet("Fatture");
         WriteHeaders(sheet, InvoiceHeaders);
         var rowNumber = 2;
